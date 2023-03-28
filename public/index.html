@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="awsm.css">
+    <title>Express Yakut</title>
+</head>
+<body>
+    <header>
+        <h1>Сервер на Express</h1>
+    </header>
+    <main>
+        <h2>Список путей и их функционал</h2>
+        <ol>
+            <li>"/" - коренной путь, работающий как GET-запрос, возвращает html страницу, которую вы сейчас видите.</li>
+            <li>"/stats" - Get-запрос, который возвращает html таблицу со следующими полями: 
+                <ul>
+                <li>"req.headers['user-agent']" - это свойство объекта headers в запросе (request) в Express, которое содержит информацию о названии браузера, его версии, операционной системе, на которой запущен браузер, и другие данные.</li>
+                <li>"user.user_agent" - это значение глобальной переменной user, которая хранит в себе объект user_agent, отвечающий за подсчёт кол-ва запросов.</li>
+                </ul>
+            </li>
+            <li>"/comments" - POST-запрос, который возвращает клиенту сообщение 'Данные успешно отправлены!', если запрос сработал корректно.</li>
+        </ol>
+    </main>
+</body>
+</html>
