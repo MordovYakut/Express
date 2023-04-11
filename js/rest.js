@@ -6,8 +6,22 @@ let user = {user_agent: 0};
 
 const urlencodedParser = express.urlencoded({extended: false});
 
+function checkAuthorization(req, res, next){
+    const apiKey = req.query.apiKey;
+    if (apiKey !== 'secret'){
+        res.status(401).send('Что-то пошло не так.');
+    }
+    else {
+        next();
+    }
+}
+
 router.get('/', (req, res) => {
     res.send('Home');
+})
+
+router.post('/users', checkAuthorization, (req, res) => {
+    res.send('Успешно!');
 })
 
 router.get('/stats', (req, res) => {
@@ -22,14 +36,6 @@ router.post('/comments', urlencodedParser, (req, res) => {
     if (!req.body) return res.status(404);
     console.log(req.body);
     res.send('Данные успешно отправлены!');
-})
-
-router.use((req, res) => {
-    res.status(404).send('Данная страница не найдена!');
-})
-
-router.use((err, req,res) => {
-    res.status(500).send('Ошибка сервера')
 })
 
 module.exports = router;
