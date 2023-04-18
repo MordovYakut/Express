@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const restAPI = require("./js/rest");
+const restAPI = require("./router/rest");
 
 const hostname = '127.0.0.1';
 const port = 3000;
