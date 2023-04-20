@@ -1,19 +1,27 @@
-const {client} = require("../configs/config");
+const collection = require("../configs/config");
 
-async function insertDocBD(){
-    try {
-        await client.connect();
-        console.log('Database connection successful');
-        const db = client.db("test");
-        const users = db.collection("users");
-        const user = {name: 'Pavel', text: 'Test'};
-        const result = await users.insertOne(user);
-        console.log(result);
-    }catch(err) {
-        console.log(err);
-    } finally {
-        await client.close();
-    }
+async function insertDocDB(body){
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+    const formattedDate = `${day}:${month}:${year}`;
+    body.date = formattedDate;
+    await collection.insertOne(body);
 }
 
-module.exports = {insertDocBD};
+async function findDocDB(){
+    const findAll = await collection.find().toArray();
+    return findAll;
+}
+
+async function findOneDocDB(usid){
+    const findOne = await collection.findOne({name: usid});
+    return findOne;
+}
+
+module.exports = {
+    insertDocDB,
+    findDocDB,
+    findOneDocDB
+};

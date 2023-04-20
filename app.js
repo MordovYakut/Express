@@ -2,8 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const restAPI = require("./router/rest");
-const {connectDB} = require("./configs/config");
-const {insertDocBD} = require("./services/service");
+const dbAPI = require("./controllers/controller");
+const {insertDocDB, findDocDB} = require("./services/service");
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -13,9 +13,9 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.static('public'));
 app.use('/v1', restAPI);
+app.use('/db', dbAPI);
 
 app.listen(port, hostname, () => {
-    connectDB();
     console.log(`Server is running on http://${hostname}:${port}`)
 })
 
