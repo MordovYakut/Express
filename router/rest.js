@@ -3,7 +3,7 @@ const router = express.Router();
 
 let user = {user_agent: 0};
 
-const urlencodedParser = express.urlencoded({extended: false});
+const jsonParser = express.json();
 
 function checkAuthorization(req, res, next){
     const apiKey = req.query.apiKey;
@@ -31,7 +31,7 @@ router.get('/stats', (req, res) => {
     </table>`);
 })
 
-router.post('/comments', urlencodedParser, (req, res) => {
+router.post('/comments', jsonParser, (req, res) => {
     if (!req.body) return res.status(404);
     console.log(req.body);
     res.send('Данные успешно отправлены!');
