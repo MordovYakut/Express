@@ -6,7 +6,7 @@ const urlencodedParser = express.urlencoded({extended: false});
 
 controller.post('/comments', urlencodedParser, async (req, res) => {
     if (!req.body) return res.status(404);
-    body = req.body
+    body = req.body;
     await insertDocDB(body);
     console.log(insertDocDB);
     res.send('Данные успешно добавлены!');

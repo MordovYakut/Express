@@ -3,7 +3,6 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const restAPI = require("./router/rest");
 const dbAPI = require("./controllers/controller");
-const {insertDocDB, findDocDB} = require("./services/service");
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -23,6 +22,6 @@ app.use((req, res) => {
     res.status(404).send('Данная страница не найдена!');
 })
 
-app.use((err, req,res) => {
+app.use((err, req, res) => {
     res.status(500).send('Ошибка сервера')
 })
