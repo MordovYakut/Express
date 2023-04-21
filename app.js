@@ -14,14 +14,14 @@ app.use(express.static('public'));
 app.use('/v1', restAPI);
 app.use('/db', dbAPI);
 
-app.listen(port, hostname, () => {
-    console.log(`Server is running on http://${hostname}:${port}`)
-})
-
 app.use((req, res) => {
-    res.status(400).send('Данная страница не найдена!');
+    res.status(404).send('Данная страница не найдена!');
 })
 
 app.use((err, req, res) => {
     res.status(500).send('Ошибка сервера')
+})
+
+app.listen(port, hostname, () => {
+    console.log(`Server is running on http://${hostname}:${port}`)
 })
