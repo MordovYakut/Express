@@ -19,7 +19,7 @@ app.listen(port, hostname, () => {
 })
 
 app.use((req, res) => {
-    res.status(404).send('Данная страница не найдена!');
+    res.status(400).send('Данная страница не найдена!');
 })
 
 app.use((err, req, res) => {
