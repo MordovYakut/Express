@@ -1,8 +1,4 @@
-const express = require('express');
 const { insertDocDB, findDocDB, findOneDocDB } = require('./service');
-
-const jsonParser = express.json();
-
 
 async function postcom(req,res){
     if (req.headers['content-type'] === 'application/json'){

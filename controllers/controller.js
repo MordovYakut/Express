@@ -2,9 +2,9 @@ const express = require('express');
 const controller = express.Router();
 const { getcom, getcomid, postcom } = require('../services/contserv');
 
-// const jsonParser = express.json();
+const jsonParser = express.json();
 
-controller.post('/comments', postcom);
+controller.post('/comments',jsonParser, postcom);
 
 controller.get('/comments', getcom)
 
