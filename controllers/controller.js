@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = express.Router();
-const { getcom, getcomid, postcom } = require('../services/contserv');
+const { getcom, getcomid, postcom } = require('../services/service');
 
 const jsonParser = express.json();
 
