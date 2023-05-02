@@ -1,30 +1,33 @@
 const ObjectId = require('mongodb').ObjectId;
-const collection = require("../configs/config");
+const db = require("../configs/config");
 
 async function insertDocDB(body){
+    const usersCollection = await db.collection('users');
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
     const day = currentDate.getDate();
     const formattedDate = `${day}:${month}:${year}`;
     body.date = formattedDate;
-    await collection.insertOne(body);
+    await usersCollection.insertOne(body);
 }
 
 async function findDocDB(){
-    const findAll = await collection.find().toArray();
+    const usersCollection = await db.collection('users');
+    const findAll = await usersCollection.find().toArray();
     return findAll;
 }
 
 async function findOneDocDB(usid){
-    const findOne = await collection.findOne({ _id: new ObjectId(usid)});
+    const usersCollection = await db.collection('users');
+    const findOne = await usersCollection.findOne({ _id: new ObjectId(usid)});
     return findOne;
 }
 
 async function postcom(req,res){
     if (req.headers['content-type'] === 'application/json'){
         body = req.body;
-        if (!body.name || !body.text || body == "") {
+        if (!body.name || !body.text || body === "" || Object.keys(body).length !== 2) {
             res.status(404).send('Error');
         }
         else{
