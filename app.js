@@ -18,8 +18,10 @@ app.use((req, res) => {
     res.status(404).send('Данная страница не найдена!');
 })
 
-app.use((err, req, res) => {
-    res.status(500).send('Ошибка сервера')
+app.use(function (err, req, res, next) {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal server error';
+    res.status(statusCode).json({ message: message });
 })
 
 app.listen(port, hostname, () => {
