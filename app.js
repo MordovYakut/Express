@@ -14,10 +14,6 @@ app.use(express.static('public'));
 app.use('/v1', restAPI);
 app.use('/db', dbAPI);
 
-app.use((req, res) => {
-    res.status(404).send('Данная страница не найдена!');
-})
-
 app.use(function (err, req, res, next) {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal server error';

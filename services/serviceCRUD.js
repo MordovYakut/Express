@@ -36,7 +36,7 @@ async function insertMod(req, res, next){
             body = req.body;
             if (!body.name || !body.modelname || !body.type || !body.object || !body.overview || !body.comment || body === "" || Object.keys(body).length !== 6) {
                 const error = new Error('Invalid request body');
-                error.status = 400;
+                error.statusCode = 400;
                 throw error;
             }
             else{
@@ -47,7 +47,7 @@ async function insertMod(req, res, next){
         }
         else{
             const error = new Error('Invalid content-type');
-            error.status = 400;
+            error.statusCode = 400;
             throw error;
         }
     }
@@ -106,11 +106,11 @@ async function deleteMod(req, res, next){
     try{
         const collection = await db.collection('models');
         const id = req.params.id;
-        const filter = { _id: new ObjectId(id) };
+        const filter = { _id: (id) };
         const foundObject = await collection.findOne(filter);
         if (!foundObject){
             const error = new Error(`Object with id: "${id}" not found`);
-            error.status = 404;
+            error.statusCode = 404;
             throw error;
         }
         else{
@@ -123,11 +123,10 @@ async function deleteMod(req, res, next){
     }
 }
 
-async function newApi(body, next){
+async function newApi(body){
     try{
         const collection = await db.collection('apikey');
         const newapikey = crypto.randomBytes(8).toString('hex');
-        const body = req.body;
         if (!body || Object.keys(body).length === 0) {
             const error = new Error('Request body cannot be empty');
             error.status = 404;
@@ -141,7 +140,7 @@ async function newApi(body, next){
         }
     }
     catch (err) {
-        next(err);
+        throw err;
     }
 }
 
@@ -170,13 +169,34 @@ async function postApi(req, res, next){
     }
 }
 
+async function deleteApi(req, res, next){
+    try{
+        const collection = await db.collection('apikey');
+        const apikey = req.params.id;
+        const filter = { _id: (apikey) };
+        const foundObject = await collection.findOne(filter);
+        if (!foundObject){
+            const error = new Error(`ApiKey "${id}" not found`);
+            error.statusCode = 404;
+            throw error;
+        }
+        else{
+            await collection.deleteOne(filter);
+            res.send(`ApiKey "${apikey}" deleted successfully`);
+        }
+    }
+    catch(err){
+        next(err);
+    }
+}
+
 async function findMod(req, res, next){
     try{
         const collection = await db.collection('models');
-        const findAll = await collection.find().toArray();
+        const findAll = await collection.find({}, {projection:{"_id": 1, "name": 1}} ).toArray();
         if (findAll === 0){
             const error = new Error('No models found');
-            error.status = 404;
+            error.statusCode = 404;
             throw error;
         }
         else{
@@ -196,7 +216,7 @@ async function findOneMod(req, res, next){
         const foundObject = await collection.findOne(filter);
         if (!foundObject){
             const error = new Error('No models found');
-            error.status = 404;
+            error.statusCode = 404;
             throw error;
         }
         else{
@@ -215,5 +235,6 @@ module.exports = {
     updateMod,
     deleteMod,
     findMod,
-    findOneMod
+    findOneMod,
+    deleteApi
 }

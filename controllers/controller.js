@@ -1,7 +1,7 @@
 const express = require('express');
 const controller = express.Router();
 const { getcom, getcomid, postcom } = require('../services/service');
-const { postApi, checkApi, insertMod, updateMod, deleteMod, findMod, findOneMod } = require('../services/serviceCRUD');
+const { postApi, checkApi, insertMod, updateMod, deleteMod, findMod, findOneMod, deleteApi } = require('../services/serviceCRUD');
 
 const jsonParser = express.json();
 
@@ -16,6 +16,8 @@ controller.get('/models/', findMod);
 controller.get('/models/:id', findOneMod);
 
 controller.post('/api', jsonParser, postApi);
+
+controller.delete('/api/:id', deleteApi);
 
 controller.delete('/models/:id', checkApi, deleteMod);
 

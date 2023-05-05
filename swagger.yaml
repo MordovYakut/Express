@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  title: Express Server - OpenAPI 3.0
+  description: CRUD operations for managing models
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: mordovyakut@mail.ru
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: apiKey
+    description: Everything about apiKey
+  - name: models
+    description: Everything about models
+paths:
+  /models:
+    get:
+      tags:
+        - models
+      summary: Retrieve all models
+      description: Retrieve all models
+      operationId: findMod
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model'
+        '404':
+          description: No models found
+    post:
+      tags:
+        - models
+      summary: Create a new model
+      description: Create a new model
+      operationId: insertMod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Model'
+        '404':
+          description: Invalid input
+      security:
+        - apiKey: []
+  /models/{id}:
+    get:
+      tags:
+        - models
+      summary: Find model by ID
+      description: Find model by ID
+      operationId: findOneMod
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the model to retrieve
+          schema:
+            type: string
+          example: 6144f9a4ec72c63a1a4a54c4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+        '404':
+          description: Invalid status value
+      security:
+        - apiKey: []
+    post:
+      tags:
+        - models
+      summary: Finds Pets by status
+      description: Multiple status values can be provided with comma separated strings
+      operationId: findPetsByStatus
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+    delete:
+      tags:
+        - models
+      summary: Finds Pets by status
+      description: Multiple status values can be provided with comma separated strings
+      operationId: findPetsByStatus
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /api:
+    post:
+      tags:
+        - apiKey
+      summary: Finds Pets by tags
+      description: Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+      operationId: findPetsByTags
+      parameters:
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid tag value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+components:
+  schemas:
+    Model:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID of the model
+          example: 6144f9a4ec72c63a1a4a54c4
+        name:
+          type: string
+          description: Name of the human
+          example: Pavel
+        modelname:
+          type: string
+          description: Name of the model
+          example: Track
+        type:
+          type: string
+          description: Type of the model
+          example: Car
+        object:
+          type: string
+          description: Object itself
+          example: {Track}
+        overview:
+          type: string
+          description: Description of the model
+          example: This is a track
+        comment:
+          type: string
+          description: Commentary to the model
+          example: Nice track
+  requestBodies:
+    Pet:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Pet'
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: apiKey
+      in: header
