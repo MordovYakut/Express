@@ -3,6 +3,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const restAPI = require("./router/rest");
 const dbAPI = require("./controllers/controller");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -13,6 +15,7 @@ app.use(helmet());
 app.use(express.static('public'));
 app.use('/v1', restAPI);
 app.use('/db', dbAPI);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(function (err, req, res, next) {
     const statusCode = err.statusCode || 500;
