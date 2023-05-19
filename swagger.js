@@ -186,7 +186,7 @@ const swaggerJSDoc = require("swagger-jsdoc");
  *        description: Internal server error
  *    security:
  *      - apiKey: []
- * /api:
+ * / api:
  *  post:
  *    tags:
  *      - apiKey
@@ -243,7 +243,7 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: "http://127.0.0.1:3000"
+            url: "http://127.0.0.1:3000/db"
         }
     ],
     tags: [
