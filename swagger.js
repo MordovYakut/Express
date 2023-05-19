@@ -235,98 +235,98 @@ const swaggerJSDoc = require("swagger-jsdoc");
  */
 
 const swaggerDefinition = {
-  openapi: "3.0.3",
-  info: {
-      title: "Express Server - OpenAPI 3.0",
-      version: "1.0.0",
-      description: "CRUD operations for managing models"
-  },
-  servers: [
-      {
-          url: "http://127.0.0.1:3000"
-      }
-  ],
-  tags: [
-      {
-          name: "apiKey",
-          description: "Everything about apiKey"
-      },
-      {
-      name: "models",
-      description: "Everything about models"
-      }
-  ],
-  components: {
-      schemas: {
-          Model: {
-              type: "object",
-              properties: {
-              _id: {
-                  type: "string",
-                  description: "ID of the model",
-                  example: "6144f9a4ec72c63a1a4a54c4"
-              },
-              name: {
-                  type: "string",
-                  description: "Name of the human",
-                  example: "Pavel"
-              },
-              modelname: {
-                  type: "string",
-                  description: "Name of the model",
-                  example: "Track"
-              },
-              type: {
-                  type: "string",
-                  description: "Type of the model",
-                  example: "Car"
-              },
-              object: {
-                  type: "string",
-                  description: "Object itself",
-                  example: "Track"
-              },
-              overview: {
-                  type: "string",
-                  description: "Description of the model",
-                  example: "This is a track"
-              },
-              comment: {
-                  type: "string",
-                  description: "Commentary to the model",
-                  example: "Nice track"
-              }
-              }
-          },
-          apiKey: {
-              type: "object",
-              properties: {
-                  _id: {
-                      type: "string",
-                      description: "ID of the model",
-                      example: "6144f9a4ec72c63a1a4a54c4"
-                  },
-                  name: {
-                      type: "string",
-                      description: "Name of the human",
-                      example: "Pavel"
-                  }
-              }
-          }
-      },
-      securitySchemes: {
-          apiKey: {
-              type: "apiKey",
-              name: "apiKey",
-              in: "header"
-          }
-      }
-  }
+    openapi: "3.0.3",
+    info: {
+        title: "Express Server - OpenAPI 3.0",
+        version: "1.0.0",
+        description: "CRUD operations for managing models"
+    },
+    servers: [
+        {
+            url: "http://127.0.0.1:3000"
+        }
+    ],
+    tags: [
+        {
+            name: "apiKey",
+            description: "Everything about apiKey"
+        },
+        {
+        name: "models",
+        description: "Everything about models"
+        }
+    ],
+    components: {
+        schemas: {
+            Model: {
+                type: "object",
+                properties: {
+                _id: {
+                    type: "string",
+                    description: "ID of the model",
+                    example: "6144f9a4ec72c63a1a4a54c4"
+                },
+                name: {
+                    type: "string",
+                    description: "Name of the human",
+                    example: "Pavel"
+                },
+                modelname: {
+                    type: "string",
+                    description: "Name of the model",
+                    example: "Track"
+                },
+                type: {
+                    type: "string",
+                    description: "Type of the model",
+                    example: "Car"
+                },
+                object: {
+                    type: "string",
+                    description: "Object itself",
+                    example: "Track"
+                },
+                overview: {
+                    type: "string",
+                    description: "Description of the model",
+                    example: "This is a track"
+                },
+                comment: {
+                    type: "string",
+                    description: "Commentary to the model",
+                    example: "Nice track"
+                }
+                }
+            },
+            apiKey: {
+                type: "object",
+                properties: {
+                    _id: {
+                        type: "string",
+                        description: "ApiKey",
+                        example: "6144f9a4ec72c63a1a4a54c4"
+                    },
+                    name: {
+                        type: "string",
+                        description: "Name of the human",
+                        example: "Pavel"
+                    }
+                }
+            }
+        },
+        securitySchemes: {
+            apiKey: {
+                type: "apiKey",
+                name: "apiKey",
+                in: "header"
+            }
+        }
+    }
 };
 
 const options = {
-  swaggerDefinition,
-  apis: ["./*.js"]
+    swaggerDefinition,
+    apis: ["./*.js"]
 };
 
 const swaggerSpec = swaggerJSDoc(options);
