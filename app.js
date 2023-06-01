@@ -17,6 +17,14 @@ app.use('/v1', restAPI);
 app.use('/db', dbAPI);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.get('/fetch', (req,res) => {
+    res.sendFile(__dirname + '/public/fetch.html')
+})
+
+app.get('/users', (req, res) => {
+    res.json(users);
+})
+
 app.use(function (err, req, res, next) {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal server error';

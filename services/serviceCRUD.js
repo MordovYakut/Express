@@ -106,7 +106,7 @@ async function deleteMod(req, res, next){
     try{
         const collection = await db.collection('models');
         const id = req.params.id;
-        const filter = { _id: (id) };
+        const filter = { _id: new ObjectId(id) };
         const foundObject = await collection.findOne(filter);
         if (!foundObject){
             const error = new Error(`Object with id: "${id}" not found`);

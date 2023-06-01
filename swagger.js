@@ -186,7 +186,7 @@ const swaggerJSDoc = require("swagger-jsdoc");
  *        description: Internal server error
  *    security:
  *      - apiKey: []
- * / api:
+ * /api:
  *  post:
  *    tags:
  *      - apiKey
