@@ -23,8 +23,8 @@ function addModelToTable(modelName, modelId) {
     tableBody.appendChild(row);
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
-    try {
+async function getMod(){
+    try{
         const response = await fetch('/db/models/');
         const models = await response.json();
         if (models.length === 0) {
@@ -39,6 +39,16 @@ document.addEventListener('DOMContentLoaded', async function() {
                 addModelToTable(model.name, model._id);
             });
         }
+    }
+    catch (error){
+        console.log(error);
+        alert('Что-то пошло не так');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        getMod();
     } catch (error) {
         console.error(error);
     }
@@ -59,6 +69,7 @@ tableBody.addEventListener('click', async function(event) {
                 setTimeout(getMod, 100);
             } catch (error) {
                 console.error(error);
+                alert('Что-то пошло не так');
             }
         }
     }
@@ -86,84 +97,10 @@ tableBody.addEventListener('click', async function(event) {
         } 
         catch (error) {
             console.error(error);
+            alert('Что-то пошло не так');
         }
     }
 });
-
-function createShape(form, size, color) {
-    const container = document.getElementById('threejs');
-
-    // Удаляем все предыдущие объекты three.js из контейнера
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-
-    // Устанавливаем размеры контейнера
-    const width = 750; // Задайте нужную ширину
-    const height = 375; // Задайте нужную высоту
-
-    // Создаем сцену, камеру и рендерер
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-
-    // Устанавливаем размеры рендерера
-    renderer.setSize(width, height);
-
-    // Добавляем рендерер в контейнер
-    container.appendChild(renderer.domElement);
-
-    // Добавляем пол
-    const floorGeometry = new THREE.PlaneGeometry(10, 10);
-    const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8 });
-    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-    floor.rotation.x = -Math.PI / 2;
-    floor.receiveShadow = true;
-    scene.add(floor);
-
-    // Добавляем стенку сзади
-    const wallGeometry = new THREE.PlaneGeometry(10, 5);
-    const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8 });
-    const wall = new THREE.Mesh(wallGeometry, wallMaterial);
-    wall.position.z = -5;
-    wall.receiveShadow = true;
-    scene.add(wall);
-    // Добавляем освещение
-    const light1 = new THREE.DirectionalLight(0xffffff, 0.5);
-    light1.position.set(5, 10, 5);
-    light1.castShadow = true;
-    scene.add(light1);
-    const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
-    light2.position.set(-5, 10, 5);
-    light2.castShadow = true;
-    scene.add(light2);
-    // Создание геометрии и материала в соответствии с переданными параметрами
-    let geometry, material;
-    if (form === 'cube') {
-        geometry = new THREE.BoxGeometry(size, size, size);
-    } else if (form === 'sphere') {
-        geometry = new THREE.SphereGeometry(size, 32, 32);
-    }
-    material = new THREE.MeshStandardMaterial({ color, roughness: 0.5 });
-    // Создание и добавление объекта в сцену
-    const shape = new THREE.Mesh(geometry, material);
-    shape.castShadow = true;
-    scene.add(shape);
-    // Настройка позиции и направления камеры
-    camera.position.set(2, 2, 2); // Задайте нужные координаты позиции камеры
-    camera.lookAt(shape.position); // Направляем камеру на объект
-    function animate() {
-        requestAnimationFrame(animate);
-        // Корректировка позиции объекта на поверхности
-        const raycaster = new THREE.Raycaster(shape.position, new THREE.Vector3(0, -1, 0));
-        const intersects = raycaster.intersectObject(floor);
-        if (intersects.length > 0) {
-            shape.position.y = intersects[0].point.y + size / 1,5;
-        }
-        renderer.render(scene, camera);
-    }
-    animate();
-}
 
 refreshButton.addEventListener('click', async function() {
     try {
@@ -171,25 +108,9 @@ refreshButton.addEventListener('click', async function() {
         getMod()
     } catch (error) {
         console.error(error);
+        alert('Что-то пошло не так');
     }
 });
-
-async function getMod(){
-    const response = await fetch('/db/models/');
-        const models = await response.json();
-        if (models.length === 0) {
-            const noModelsRow = document.createElement('tr');
-            const noModelsCell = document.createElement('td');
-            noModelsCell.colSpan = 2;
-            noModelsCell.textContent = 'No models found';
-            noModelsRow.appendChild(noModelsCell);
-            tableBody.appendChild(noModelsRow);
-        } else {
-            models.forEach(model => {
-                addModelToTable(model.name, model._id);
-            });
-        }
-}
 
 createButton.addEventListener('click', function() {
     const apiKey = document.getElementById('apiKey').value;
@@ -237,10 +158,80 @@ document.getElementById('objectForm').addEventListener('submit', async function(
         if (response.ok) {
             console.log('Объект успешно добавлен в базу данных');
             document.getElementById('objectForm').reset();
+            tableBody.innerHTML = '';
+            getMod()
         } else {
             console.error('Ошибка при добавлении объекта в базу данных');
+            alert('Ошибка при добавлении объекта в базу данных');
         }
     } catch (error) {
         console.error(error);
+        alert('Что-то пошло не так');
     }
 });
+
+function createShape(form, size, color) {
+    const container = document.getElementById('threejs');
+
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+
+    const width = 750;
+    const height = 375;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    renderer.setSize(width, height);
+
+    container.appendChild(renderer.domElement);
+
+    const floorGeometry = new THREE.PlaneGeometry(10, 10);
+    const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8 });
+    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+    floor.rotation.x = -Math.PI / 2;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    const wallGeometry = new THREE.PlaneGeometry(10, 5);
+    const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8 });
+    const wall = new THREE.Mesh(wallGeometry, wallMaterial);
+    wall.position.z = -5;
+    wall.receiveShadow = true;
+    scene.add(wall);
+    const light1 = new THREE.DirectionalLight(0xffffff, 0.5);
+    light1.position.set(5, 10, 5);
+    light1.castShadow = true;
+    scene.add(light1);
+    const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
+    light2.position.set(-5, 10, 5);
+    light2.castShadow = true;
+    scene.add(light2);
+
+    let geometry, material;
+    if (form === 'cube') {
+        geometry = new THREE.BoxGeometry(size, size, size);
+    } else if (form === 'sphere') {
+        geometry = new THREE.SphereGeometry(size, 32, 32);
+    }
+    material = new THREE.MeshStandardMaterial({ color, roughness: 0.5 });
+
+    const shape = new THREE.Mesh(geometry, material);
+    shape.castShadow = true;
+    scene.add(shape);
+
+    camera.position.set(2, 2, 2);
+    camera.lookAt(shape.position);
+    function animate() {
+        requestAnimationFrame(animate);
+        const raycaster = new THREE.Raycaster(shape.position, new THREE.Vector3(0, -1, 0));
+        const intersects = raycaster.intersectObject(floor);
+        if (intersects.length > 0) {
+            shape.position.y = intersects[0].point.y + size / 1,5;
+        }
+        renderer.render(scene, camera);
+    }
+    animate();
+}

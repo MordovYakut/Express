@@ -67,8 +67,7 @@ button:active {
 }
 
 #threejs {
-    width: 750px; /* Задайте нужную ширину */
-    height: 375px; /* Задайте нужную высоту */
-    resize: both; /* Разрешить изменение размера по ширине и высоте */
+    width: 750px;
+    height: 375px;
     margin: 0 auto;
 }
