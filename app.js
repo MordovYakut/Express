@@ -6,31 +6,31 @@ const dbAPI = require("./controllers/controller");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 
-const hostname = '127.0.0.1';
+const hostname = "127.0.0.1";
 const port = 3000;
 const app = express();
 
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(helmet());
-app.use(express.static('public'));
-app.use('/v1', restAPI);
-app.use('/db', dbAPI);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(express.static("public"));
+app.use("/v1", restAPI);
+app.use("/db", dbAPI);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get('/fetch', (req,res) => {
-    res.sendFile(__dirname + '/public/fetch.html')
-})
+app.get("/fetch", (req, res) => {
+  res.sendFile(__dirname + "/public/fetch.html");
+});
 
-app.get('/users', (req, res) => {
-    res.json(users);
-})
+app.get("/users", (req, res) => {
+  res.json(users);
+});
 
 app.use(function (err, req, res, next) {
-    const statusCode = err.statusCode || 500;
-    const message = err.message || 'Internal server error';
-    res.status(statusCode).json({ message: message });
-})
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal server error";
+  res.status(statusCode).json({ message: message });
+});
 
 app.listen(port, hostname, () => {
-    console.log(`Server is running on http://${hostname}:${port}`)
-})
+  console.log(`Server is running on http://${hostname}:${port}`);
+});

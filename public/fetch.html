@@ -1,62 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700;900&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;700;900&display=swap");
     </style>
-    <link rel="stylesheet" href="fetch.css">
+    <link rel="stylesheet" href="fetch.css" />
     <title>Fetch</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Fetch API</h1>
     <form id="apiForm">
-        <label for="apiKey">ApiKey:</label>
-        <input type="text" id="apiKey" name="apiKey">
+      <label for="apiKey">ApiKey:</label>
+      <input type="text" id="apiKey" name="apiKey" />
     </form>
     <button id="createButton">Создать модель</button>
-    <div id="createForm" style="display: none;">
-        <h2>Создать объект</h2>
-        <form id="objectForm">
-            <label for="objectName">Имя:</label>
-            <input type="text" id="objectName" name="objectName" required>
-            <label for="objectModelname">Название модели:</label>
-            <input type="text" id="objectModelname" name="objectModelname" required>
-            <label for="objectType">Тип объекта:</label>
-            <input type="text" id="objectType" name="objectType" required>
-            <label for="objectShape">Форма объекта:</label>
-            <select id="objectShape" name="objectShape">
-                <option value="cube">Куб</option>
-                <option value="sphere">Сфера</option>
-            </select>
-            <label for="objectSize">Размер фигуры:</label>
-            <input type="text" id="objectSize" name="objectSize" required>
-            <label for="objectColor">Цвет:</label>
-            <input type="text" id="objectColor" name="objectColor" required>
-            <label for="objectOverview">Описание:</label>
-            <input type="text" id="objectOverview" name="objectOverview" required>
-            <label for="objectCommentary">Комментарий:</label>
-            <input type="text" id="objectCommentary" name="objectCommentary" required>
-            <button type="submit">Создать</button>
-            <button id="closeButton">Закрыть</button>
-        </form>
+    <div id="createForm" style="display: none">
+      <h2>Создать объект</h2>
+      <form id="objectForm">
+        <label for="objectName">Имя:</label>
+        <input type="text" id="objectName" name="objectName" required />
+        <label for="objectModelname">Название модели:</label>
+        <input
+          type="text"
+          id="objectModelname"
+          name="objectModelname"
+          required
+        />
+        <label for="objectType">Тип объекта:</label>
+        <input type="text" id="objectType" name="objectType" required />
+        <label for="objectShape">Форма объекта:</label>
+        <select id="objectShape" name="objectShape">
+          <option value="cube">Куб</option>
+          <option value="sphere">Сфера</option>
+        </select>
+        <label for="objectSize">Размер фигуры:</label>
+        <input type="text" id="objectSize" name="objectSize" required />
+        <label for="objectColor">Цвет:</label>
+        <input type="text" id="objectColor" name="objectColor" required />
+        <label for="objectOverview">Описание:</label>
+        <input type="text" id="objectOverview" name="objectOverview" required />
+        <label for="objectCommentary">Комментарий:</label>
+        <input
+          type="text"
+          id="objectCommentary"
+          name="objectCommentary"
+          required
+        />
+        <button type="submit">Создать</button>
+        <button id="closeButton">Закрыть</button>
+      </form>
     </div>
     <table id="modelTable">
-        <thead>
+      <thead>
         <tr>
-            <th>Название модели</th>
-            <th>Действия</th>
+          <th>Название модели</th>
+          <th>Действия</th>
         </tr>
-        </thead>
-        <tbody>
-        </tbody>
+      </thead>
+      <tbody></tbody>
     </table>
     <button id="refreshButton">Обновить таблицу</button>
-    <div id="threejs" style="display: none;"></div>
+    <div id="threejs" style="display: none"></div>
     <script src="fetch.js"></script>
     <script src="three.js"></script>
     <script src="STLloader.js"></script>
-</body>
+  </body>
 </html>

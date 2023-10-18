@@ -1,73 +1,73 @@
 :root {
-    font-size: 62.5%;
-    font-family: 'Barlow', sans-serif;
-    max-width: 70ch;
-    padding: 3em 1em;
-    margin: auto;
-    line-height: 1.75;
-    font-size: 1.25em;
+  font-size: 62.5%;
+  font-family: 'Barlow', sans-serif;
+  max-width: 70ch;
+  padding: 3em 1em;
+  margin: auto;
+  line-height: 1.75;
+  font-size: 1.25em;
 }
 
 h1,h2,h3,h4,h5,h6 {
-    margin: 3em 0 1em;
+  margin: 3em 0 1em;
 }
 
 p,ul,ol {
-    margin-bottom: 2em;
-    color: #1d1d1d;
-    font-family: sans-serif;
+  margin-bottom: 2em;
+  color: #1d1d1d;
+  font-family: sans-serif;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
 
 th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 input {
-    padding: 7px;
-    border-radius: 10px;
+  padding: 7px;
+  border-radius: 10px;
 }
 
 button {
-    padding: 7px;
-    margin: 5px;
-    border-radius: 10px;
-    color: #000000;
-    background-color: rgb(116, 201, 202);
+  padding: 7px;
+  margin: 5px;
+  border-radius: 10px;
+  color: #000000;
+  background-color: rgb(116, 201, 202);
 }
 
 button:hover {
-    box-shadow: inset 0 0 15px 0.5px black;
+  box-shadow: inset 0 0 15px 0.5px black;
 }
 
 button:active {
-    transform: scale(0.95);
-    transition: transform 0.2s;
+  transform: scale(0.95);
+  transition: transform 0.2s;
 }
 
 #objectForm {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #objectShape {
-    padding: 0.5em;
-    border-radius: 10px;
+  padding: 0.5em;
+  border-radius: 10px;
 }
 
 #createForm {
-    margin-bottom: 3em;
+  margin-bottom: 3em;
 }
 
 #threejs {
-    width: 750px;
-    height: 375px;
-    margin: 0 auto;
+  width: 750px;
+  height: 375px;
+  margin: 0 auto;
 }
